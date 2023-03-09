@@ -1,0 +1,136 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define n 6
+int arr[];
+int top=-1;
+struct node{
+    int data;
+    struct node*next;
+    
+};
+
+typedef struct node st;
+
+struct node*head=NULL;
+struct node*tail=NULL;
+
+void create(int data)
+{
+    //to create the node//
+    struct node*ptr;
+    ptr=(struct node*)malloc(sizeof(struct node));
+    ptr->data=data;
+    ptr->next=NULL;
+
+    if(head==NULL)
+    {
+        head=ptr;
+        tail=ptr;
+    }
+    else{
+        tail->next=ptr;
+        tail=ptr;
+    }
+}
+
+void display()
+{
+    struct node*ptr;
+    ptr=head;
+    if(head==NULL)
+    {
+        printf("\n\nNOTHING TO DISPLAY!\n");
+    }
+    while(ptr!=NULL){
+        printf("%d",ptr->data);
+        printf("\t");
+        ptr=ptr->next;
+    }
+}
+
+void createstack()
+{
+    if(top==-1)
+    {
+        printf("\nSTACK CREATED!\n");
+    }
+    else{
+        printf("\nCOULDN'T CREATE STACK!\n");
+    }
+}
+
+void push(int value)
+{
+    if(top==n-1)
+    {
+        printf("\nOVERFLOW!\n");
+    }
+    else{
+        top++;
+        arr[top]=value;
+    }
+}
+void delete()
+{
+    struct node*ptr;
+    ptr=(struct node*)malloc(sizeof(struct node));
+    if(head==NULL)
+    {
+        printf("\n\nNOTHING TO DELETE!\n");
+    }
+    else{
+        for(int i=0;i<n;i++)
+        ptr=head;
+        head=head->next;
+        push(ptr->data);
+        free(ptr);
+    }
+}
+void pop()
+{
+    if(top==-1)
+    {
+        printf("\nUNDERFLOW!");
+    }
+    else{
+        int data=arr[top];
+        top--;
+        printf("\n\nREVERSE LIST: \n\n");
+        for(int i=n-1;i>=0;i--)
+        {
+            create(arr[i]);
+            printf("%d",arr[i]);
+            printf("\t\t");
+        }
+    }
+}
+
+
+void displaystack()
+{
+    printf("\n\nSTACK: \n");
+    for(int i=0;i<n;i++)
+    {
+        printf("%d",arr[i]);
+        printf("\t");
+    }
+}
+int main(st*s)
+{
+    for(int i=1;i<n+1;i++)
+    {
+        create(i);
+    }
+    printf("\n");
+    createstack();
+    printf("\n\nLINKED LIST : \n\n");
+    display();
+    for(int j=0;j<n;j++)
+    {
+        delete();
+        displaystack();
+    }
+    pop();
+    printf("\n\n");
+    return 0;
+}
